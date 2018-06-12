@@ -1,0 +1,27 @@
+{
+  "name": "09-rest-persistence",
+  "version": "1.0.0",
+  "description": "![cf](https://i.imgur.com/7v5ASc8.png) Lab 09: Vanilla REST API w/ Persistence",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "lint": "eslint **/*.js",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GitHubMaxwell/09-rest-persistence.git"
+  },
+  "author": "maxwell rediker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GitHubMaxwell/09-rest-persistence/issues"
+  },
+  "homepage": "https://github.com/GitHubMaxwell/09-rest-persistence#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "eslint": "^4.19.1",
+    "jest": "^23.1.0",
+    "superagent": "^3.8.3"
+  }
+}
