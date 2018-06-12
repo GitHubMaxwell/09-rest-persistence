@@ -12,6 +12,7 @@ class Note{
    * @param config
    */
   constructor(config) {
+    //hows does the onfig know to expect a stringified object. check 
     this.id = uuid();
     this.createdOn = new Date();
     this.title = config && config.title || '';

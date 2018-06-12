@@ -3,6 +3,7 @@
 let router = require('../../../src/lib/router.js');
 
 describe('Router', () => {
+//all these tests work
 
   it('registers routes of multiple types', () => {
     router.get('/', () => true);

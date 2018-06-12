@@ -23,13 +23,17 @@ methods.forEach( (method) => {
     This next bit of code creates a set of functions that will accept route definitions.
     When this completes, you will end up with functions created like
     these (below), which you can later use to create actual routes
+
     router.get = (path, callback) = function(path,callback) { router.routes[method][path] = callback; }
     router.post = (path, callback) = function(path,callback) { router.routes[method][path] = callback; }
     ...
+
     So ... if you were to do this in some other module:
       router.route.get('/foo', (req,res) => console.log("Hi"));
       router.route.get('/bar', (req,res) => console.log("Bye"));
+      
       That would result in a new router table entries like this:
+
       router.GET: {
         '/foo': (req,res) => console.log("Hi")),
         '/bar': (req,res) => console.log("Bye"))
@@ -56,7 +60,7 @@ router.route = (req,res) => {
     })
     // Otherwise, bug out with an error
     .catch(err => {
-      console.error('NOT_FOUND', req.parsed.pathname);
+      console.error('NOT_FOUND router.route catch', req.parsed.pathname);
       res.statusCode = 404;
       res.statusMessage = 'Not Found';
       res.write(`Resource Not Found (${req.parsed.pathname})`);

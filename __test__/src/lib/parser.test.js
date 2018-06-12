@@ -1,9 +1,9 @@
 'use strict';
 
-let parser = require('../../../src/lib/parser.js');
+let parser = require('../../../src/lib/parser');
 
 describe('URL Parser', () => {
-
+//all these tests work
   it('requires a request object', () => {
     let req = undefined;
     return parser(req)
@@ -29,8 +29,9 @@ describe('URL Parser', () => {
     let req = { method:'GET', url: 'http://localhost?a=b&c=d' };
     return parser(req)
       .then( request => {
-        expect(request.url.query.a).toEqual('b');
-        expect(request.url.query.c).toEqual('d');
+        // console.log('REQUEST',request.query);
+        expect(request.query.a).toEqual('b');
+        expect(request.query.c).toEqual('d');
       })
       .catch( console.error );
   });
