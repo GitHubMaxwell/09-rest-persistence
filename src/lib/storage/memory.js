@@ -16,7 +16,7 @@ storage.getAll = () => {
 
 // To get a single note, check for it in the database, and resolve with it
 storage.get = (id) => {
-  // console.log('GOT TO MEM GET');
+  console.log('GOT TO MEM GET');
   return new Promise( (resolve,reject) => {
     if ( database[id] ) { resolve(database[id]); }
     else { reject(`${id} not found`); }

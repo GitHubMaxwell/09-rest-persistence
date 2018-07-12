@@ -5,7 +5,7 @@
 const storage = require('../lib/storage/data-store.js');
 const uuid = require('uuid/v1');
 
-class Note{
+class Note {
 
   /**
    * Simple constructor function for our note model
