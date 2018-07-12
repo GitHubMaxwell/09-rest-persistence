@@ -7,8 +7,13 @@ const queryString = require('querystring');
 module.exports = (req) => {
 
   return new Promise( (resolve,reject) => {
+    // console.log('parser.js BEFORE If');
 
-    if( !(req || req.url) ) { reject('Invalid Request Object. Cannot Parse'); }
+    if( !(req || req.url) ) { 
+      // console.log('parser.js in reject');
+
+      reject('Invalid Request Object. Cannot Parse'); 
+    }
 
     // req.url = http://localhost:3000/api/v1/notes?id=12345
     req.parsed = url.parse(req.url);
@@ -39,10 +44,15 @@ module.exports = (req) => {
 
     req.on('end', () => {
       try{
+        // console.log('parser.js JSON.parse');
         req.body = JSON.parse(text);
         resolve(req);
       }
-      catch(err) { reject(err); }
+      catch(err) { 
+        // console.log('parser.js try catch error');
+
+        reject(err); 
+      }
 
     });
 
