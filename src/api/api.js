@@ -12,13 +12,13 @@ let sendJSON = (res,data) => {
   res.end();
 };
 
-let noBody = (res) => {
-  res.statusCode = 400;
-  res.statusMessage = 'bad request';
-  // res.setHeader('Content-Type', 'application/json');
-  res.write(`ID: ${res.body} was requested`);
-  res.end();
-};
+// let noBody = (res) => {
+//   res.statusCode = 400;
+//   res.statusMessage = 'bad request';
+//   // res.setHeader('Content-Type', 'application/json');
+//   res.write(`ID: ${res.body} was requested`);
+//   res.end();
+// };
 
 let deleteReq = (res,data) => {
   res.statusCode = 204;
@@ -41,7 +41,7 @@ let deleteReq = (res,data) => {
 
 
 let serverErr = (res,err) => {
-  console.log('serverErr in api.js');
+  // console.log('serverErr in api.js');
 
   let error = { error: err };
   res.statusCode = 404;
@@ -53,12 +53,13 @@ let serverErr = (res,err) => {
 
 let getError = (res,err) => {
   let error = { error:err };
-  console.log('getError in api.js', error);
+  // console.log('getError in api.js', error);
   res.statusCode = 404;
   res.statusMessage = 'Not Found';
   // res.setHeader('Content-Type', 'application/text');
   //this set header is causing the json problem??? its expecting json?
-  res.write( 'Not Found' );
+  // res.write( 'Not Found' );
+  // why did it throw an error // Error [ERR_STREAM_WRITE_AFTER_END]: write after end
   res.end();
 };
 
@@ -93,18 +94,24 @@ let getError = (res,err) => {
 
 router.get('/api/v1/notes', (req,res) => {
   
-  console.log('GET QUERY ID',req.query.id);
+  // console.log('GET QUERY ID',req.query.id);
+  if ( !req.query.id ) {
+    res.statusCode=400;
+    res.statusMessage='Bad Reqqqqqquest';
+    res.end();
+  }
+
 
   if ( req.query.id ) {
-    console.log('GET QUERY ID',req.query.id);
+    // console.log('GET QUERY ID',req.query.id);
 
     Notes.findOne(req.query.id)
       .then( data => {
-        console.log('GET findOine THEN ',req.query.id);
+        // console.log('GET findOine THEN ',req.query.id);
         sendJSON(res,data);
       })
       .catch( err => {
-        console.log('GET findOine CATCH ',req.query.id);
+        // console.log('GET findOne CATCH ',req.query.id);
         getError(res,err);
       });
   }
@@ -117,7 +124,7 @@ router.get('/api/v1/notes', (req,res) => {
 
 router.delete('/api/v1/notes', (req,res) => {
   if ( req.query.id ) {
-    console.log('REQ QUERY ID DELETE',req.query.id);
+    // console.log('REQ QUERY ID DELETE',req.query.id);
     Notes.deleteOne(req.query.id)
       .then( success => {
         let data = {id:req.query.id,deleted:success};
