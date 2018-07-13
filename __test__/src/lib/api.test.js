@@ -11,7 +11,7 @@ describe('API Module', () => {
     app.stop();
   });
 
-  xit('POST: test 400, it should respond with "bad request" if no request body was provided or the body was invalid', (done) => {
+  it('POST: test 400, it should respond with "bad request" if no request body was provided or the body was invalid', (done) => {
     // let obj = {
     //   content:'max',
     //   title: 'maxtitle',
@@ -19,24 +19,14 @@ describe('API Module', () => {
     superagent.post('http://localhost:8000/api/v1/notes')
       // .send(obj)
       // .then(data => Promise.reject(data))
-      // .then(data => {
-      //   console.log('THEN BODY:', data.body);
-      //   expect(true).toEqual(false);
-      // })
       .catch(data => {
-        // console.log('DATA BODY:', data.status);
-        console.log('DATA BODY:', data);
-
-        // console.log('DATA BODY:', data.response.text);
-        // expect(true).toEqual(false);
         expect(data.status).toEqual(400);
-        expect(data.response.text).toEqual('bad request');
-
+        expect(data.message).toEqual('Bad Request');
         done();
       });
   });
 
-  xit('POST: test 200, it should respond with the body content for a post request with a valid body', (done) => {
+  it('POST: test 200, it should respond with the body content for a post request with a valid body', (done) => {
     let obj = {
       content:'max',
       title:'maxtitle',
@@ -45,16 +35,13 @@ describe('API Module', () => {
       .send(obj)
       .then(data => {
         // console.log('DATA BODY CONTENT', data);
-        expect(data.body.content).toEqual('max');
+        // expect(data.body.content).toEqual('max');
+        let response = JSON.parse(data.res.text).content;
+        expect(response).toEqual('max');
+        //this might be data.res.text.content
         expect(data.status).toEqual(200);
-
         done();
       });
-    // .catch(err => {
-    //   expect(err.status).toEqual(200);
-
-    //   done();
-    // });
   });
 
   it('GET: test 200, it should contain a response body for a request made with a valid id', (done) => {
@@ -72,8 +59,9 @@ describe('API Module', () => {
           .then(res => {
             // console.log('STATUS CODE', res.statusCode);
             // expect(res.statusCode).toEqual(400);
-            expect(res.statusCode).toEqual(200);
+            expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
+            //this will be in like res.res.text
             done();
             // expect(res).toEqual(204);
           });
@@ -94,20 +82,15 @@ describe('API Module', () => {
         let dataId = JSON.parse(data.text);
         console.log(' POST GET DATA BODY', dataId.id);
 
-        superagent.get(`http://localhost:8000/api/v1/notes?id=${dataId.id}`)
-          // .query({ id: `${fakeId}` })
-          // .query({ id: `${dataId.id}` })
+        // superagent.get(`http://localhost:8000/api/v1/notes?id=${dataId.id}`)
+        //above is the correct query string id
+        superagent.get(`http://localhost:8000/api/v1/notes?id=${fakeId}`)
 
-          // ressearch Jest .query method
-          // what if i change the key from id to something else
+        // .query({ id: `${fakeId}` })
+        // .query({ id: `${dataId.id}` })
           .then(res => {
-            console.log('THEEEN CODE 404', res.statusCode);
-            // expect(res.statusCode).toEqual(400);
-            // expect(res.statusCode).toEqual(404);
-            // search document for JSON.parse in a catch or error where its assign res values
-            expect(res.text).toEqual('not found');
+            console.log(res.status);
             done();
-            // expect(res).toEqual(204);
           })
           .catch(res => {
             // console.log('CAaaaTCH res',res);
@@ -116,55 +99,25 @@ describe('API Module', () => {
             console.log('CAaaaaTCH MESSAGE',res.message);
             expect(res.status).toEqual(404);
             expect(res.message).toEqual('Not Found');
-
             done();
           });
-        done();
-
-      })
-      .catch(err => {
-        console.log(err);
-        done();
       });
   });
 
-  xit('GET: test 400, it should respond with "bad request" if no id was provided in the request', (done) => {
-    let obj = {
-      content:'postget_CONTENT',
-      title: 'postget_TITLE'};
+  it('GET: test 400, it should respond with "bad request" if no id was provided in the request', (done) => {
 
-    superagent.post('http://localhost:8000/api/v1/notes')
-      .send(obj)
-      .then(data => {
-        // console.log(' POST GET DATA BODY', data.body);
-
-        superagent.get(`http://localhost:8000/api/v1/notes`)
-          // .query({ id: `${data.body}` })
-          // shouldnt be any query
-          //getting no id makes it pass - check route it may be hitting the fetchall in the else
-          .then(res => {
-            console.log('STATUS CODE', res.statusCode);
-            console.log('DATA',res.text);
-            console.log(res.statusMessage);
-            expect(res.statusCode).toEqual(400);
-            expect(res.statusMessage).toEqual('bad request');
-            done();
-          })
-          .catch(res => {
-            console.log('CATCH STATUS',res);
-            console.log('CATCH MESSAGE',res.text);
-            expect(res.status).toEqual(400);
-            expect(res.statusMessage).toEqual('bad request');
-            done();
-          });
-      })
+    superagent.get(`http://localhost:8000/api/v1/notes?=`)
       .catch(err => {
-        return err;
+        // console.log(err);
+        expect(err.status).toEqual(400);
+        expect(err.message).toEqual('Bad Request');
+
+        done();
       });
+
   });
 
-
-
+});
 
 //   it('DELETE test', () => {
 //     let obj = {
@@ -189,4 +142,4 @@ describe('API Module', () => {
 //         return err;
 //       });
 //   });
-});//closing the describe
+// });//closing the describe

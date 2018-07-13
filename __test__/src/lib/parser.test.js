@@ -2,7 +2,7 @@
 
 let parser = require('../../../src/lib/parser');
 
-xdescribe('URL Parser', () => {
+describe('URL Parser', () => {
 //all these tests work
   it('requires a request object', () => {
     let req = undefined;
