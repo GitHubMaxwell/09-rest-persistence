@@ -37,7 +37,7 @@ router.route = (req,res) => {
       // console.log('NOT_FOUND router.route catch', req.parsed.pathname);
       // console.log(err.status);
       res.statusCode = 400;
-      res.statusMessage = 'Not Found';
+      res.statusMessage = 'Bad Request';
       res.write(`bad request`);
       res.end();
     });

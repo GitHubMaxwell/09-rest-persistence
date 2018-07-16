@@ -10,13 +10,13 @@ const database = {};
 // When you do this, you don't have to do the whole promise wiring.
 // Rather, JS just returns a promise and immediately resolves it for you
 storage.getAll = () => {
-  // console.log('GOT TO MEM GET ALL');
+  console.log('GOT TO MEM GET ALL');
   return Promise.resolve(database);
 };
 
 // To get a single note, check for it in the database, and resolve with it
 storage.get = (id) => {
-  console.log('GOT TO MEM GET');
+  // console.log('GOT TO MEM GET');
   return new Promise( (resolve,reject) => {
     if ( database[id] ) { resolve(database[id]); }
     else { reject(`${id} not found`); }
