@@ -16,7 +16,7 @@ storage.getAll = () => {
 
 // To get a single note, check for it in the database, and resolve with it
 storage.get = (id) => {
-  console.log('GOT TO MEM GET');
+  // console.log('GOT TO MEM GET');
   return new Promise( (resolve,reject) => {
     if ( database[id] ) { resolve(database[id]); }
     else { reject(`${id} not found`); }
@@ -39,16 +39,24 @@ storage.save = (data) => {
   });
 };
 
-storage.delete = (id) => {
-  // console.log('GOT TO MEM DELETE');
+storage.deleteOne = id => {
+  // console.log('GOT TO MEM DELETE', id);
   return new Promise( (resolve,reject) => {
 
     if ( database[id] ) {
-      delete database[id].content;
-      resolve(database[id]);
+      // console.log('inside delete IF resolve');
+      // console.log('db info before delete', database[id]);
+      // delete database[id].content;
+      // why not deleting the entire entry?
+      delete database[id];
+      // jeeze im trying to return the damn entry i just deleted
+      // resolve(database[id]);
+      resolve(`${id} was deleted`);
     }
 
     else {
+      // console.log('inside delete IF reject');
+
       reject('Invalid Data (No ID)');
     }
   });

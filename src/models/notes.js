@@ -53,12 +53,13 @@ class Note {
     return storage.get(id);
   }
 
-  static updateOne(criteria) {
-    return storage.update(this);
-  }
+  // static updateOne(criteria) {
+  //   return storage.update(this);
+  // }
 
   static deleteOne(id) {
-    return storage.delete(id);
+    // console.log('delete One: ', id);
+    return storage.deleteOne(id);
   }
 
 }
