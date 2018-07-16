@@ -2,7 +2,7 @@
 
 * TRAVIS: https://travis-ci.com/GitHubMaxwell/09-rest-persistence
 * HEROKU: https://lab09-httpserver-persistence.herokuapp.com/ 
-* GITHUB PR: 
+* GITHUB PR: https://github.com/GitHubMaxwell/09-rest-persistence/pull/4
 
 ## Heroku Testing
 
@@ -13,7 +13,7 @@
 -- `https://lab09-httpserver-persistence.herokuapp.com/api/v1/notes`
 
 * GET: success 200, it should contain a response body for a request made with a valid id
--- do a post first and copy the _id and paste it in the id value of the query string (like below) `?id=<_id>`
+-- do a POST first and copy the _id and paste it in the id value of the query string (like below) `?id=<_id>`
 -- `https://lab09-httpserver-persistence.herokuapp.com/api/v1/notes?id=18f3dde0-8895-11e8-9c87-adca78fc36b5`
 
 * POST: fail 400, it should respond with 'bad request' if no request body was provided or the body was invalid
@@ -28,7 +28,7 @@
 ## EXTRA - DELETE Routes
 
 * DELETE pass 204
--- do a post first and copy the _id and paste it in the id value of the query string (like below) `?id=<_id>`
+-- do a POST first and copy the _id and paste it in the id value of the query string (like below) `?id=<_id>`
 -- `https://lab09-httpserver-persistence.herokuapp.com/api/v1/notes?id=18f3dde0-8895-11e8-9c87-adca78fc36b5`
 
 * DELETE fail 400
