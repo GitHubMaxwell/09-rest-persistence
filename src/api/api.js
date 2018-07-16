@@ -22,7 +22,7 @@ let serverErr = (res,err) => {
 };
 
 let sendJSON = (res,data) => {
-  console.log('SendJSON');
+  // console.log('SendJSON');
   res.statusCode = 200;
   res.statusMessage = 'OK';
   res.setHeader('Content-Type', 'application/json');
@@ -32,7 +32,7 @@ let sendJSON = (res,data) => {
 
 let getError = (res,err) => {
   let error = { error:err };
-  console.log('GetERROR');
+  // console.log('GetERROR');
   // console.log('getError in api.js', error);
   res.statusCode = 404;
   res.statusMessage = 'Not Found';
@@ -62,7 +62,7 @@ router.get('/api/v1/notes', (req,res) => {
   }
 
   // instead of 2 separate ifs can the below if jsut be an else
-  
+
   if ( req.query.id ) {
     // console.log('GET QUERY ID',req.query.id);
 
@@ -80,7 +80,7 @@ router.get('/api/v1/notes', (req,res) => {
 
     Notes.fetchAll()
       .then( data => {
-        console.log('RESPONSE: ',data);
+        // console.log('RESPONSE: ',data);
         sendJSON(res,data);
       })
       .catch( err => {
@@ -92,6 +92,7 @@ router.get('/api/v1/notes', (req,res) => {
 });
 
 router.delete('/api/v1/notes', (req,res) => {
+
   if ( req.query.id ) {
     // console.log('REQ QUERY ID DELETE',req.query.id);
     Notes.deleteOne(req.query.id)
@@ -100,6 +101,10 @@ router.delete('/api/v1/notes', (req,res) => {
         deleteReq(res,data);
       })
       .catch(console.error);
+  } else {
+    res.statusCode=400;
+    res.statusMessage='Bad Request';
+    res.end();
   }
 });
 

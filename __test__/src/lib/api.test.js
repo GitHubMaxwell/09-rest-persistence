@@ -11,7 +11,7 @@ describe('API Module', () => {
     app.stop();
   });
 
-  xit('POST: test 400, it should respond with "bad request" if no request body was provided or the body was invalid', (done) => {
+  it('POST: test 400, it should respond with "bad request" if no request body was provided or the body was invalid', (done) => {
     // let obj = {
     //   content:'max',
     //   title: 'maxtitle',
@@ -26,7 +26,7 @@ describe('API Module', () => {
       });
   });
 
-  xit('POST: test 200, it should respond with the body content for a post request with a valid body', (done) => {
+  it('POST: test 200, it should respond with the body content for a post request with a valid body', (done) => {
     let obj = {
       content:'max',
       title:'maxtitle',
@@ -44,7 +44,7 @@ describe('API Module', () => {
       });
   });
 
-  xit('GET: test 200, it should contain a response body for a request made with a valid id', (done) => {
+  it('GET: test 200, it should contain a response body for a request made with a valid id', (done) => {
     let obj = {
       content:'postget_CONTENT',
       title: 'postget_TITLE'};
