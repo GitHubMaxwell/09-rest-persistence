@@ -17,6 +17,7 @@ module.exports = (req) => {
 
     // req.url = http://localhost:3000/api/v1/notes?id=12345
     req.parsed = url.parse(req.url);
+    // console.log('DELETE parsed url: ', req.parsed);
     /*
         req.parsed = {
           pathname: '/api/vi/notes',
@@ -25,6 +26,8 @@ module.exports = (req) => {
        */
 
     req.query = queryString.parse(req.parsed.query);
+    // console.log('DELETE query url: ', req.query);
+
     /*
         req.query = {
           id:12345,
@@ -33,6 +36,8 @@ module.exports = (req) => {
        */
 
     if(! req.method.match(/POST|PUT|PATCH/) ) {
+      //was forgetting to put the DELETE in the match
+      // console.log('DELETE in parser.js');
       resolve(req);
     }
 
@@ -49,8 +54,8 @@ module.exports = (req) => {
         resolve(req);
       }
       catch(err) { 
-        // console.log('parser.js try catch error');
-
+        // console.log('parser.js try catch ERR');
+        // console.log('parser.js try catch ERR: ', err);
         reject(err); 
       }
 

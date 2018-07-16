@@ -27,8 +27,9 @@
 
 ## EXTRA - DELETE Routes
 
-* DELETE pass 200, should return `ID: max was deleted`
--- `https://lab09-httpserver-persistence.herokuapp.com/api/v1/notes?id=max`
+* DELETE pass 204
+-- do a post first and copy the _id and paste it in the id value of the query string (like below) `?id=<_id>`
+-- `https://lab09-httpserver-persistence.herokuapp.com/api/v1/notes?id=18f3dde0-8895-11e8-9c87-adca78fc36b5`
 
-* DELETE fail 404, should return `no ID provided`
+* DELETE fail 400
 -- `https://lab09-httpserver-persistence.herokuapp.com/api/v1/notes`

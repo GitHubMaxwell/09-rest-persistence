@@ -10,7 +10,7 @@ const database = {};
 // When you do this, you don't have to do the whole promise wiring.
 // Rather, JS just returns a promise and immediately resolves it for you
 storage.getAll = () => {
-  console.log('GOT TO MEM GET ALL');
+  // console.log('GOT TO MEM GET ALL');
   return Promise.resolve(database);
 };
 
@@ -39,16 +39,24 @@ storage.save = (data) => {
   });
 };
 
-storage.delete = (id) => {
-  // console.log('GOT TO MEM DELETE');
+storage.deleteOne = id => {
+  // console.log('GOT TO MEM DELETE', id);
   return new Promise( (resolve,reject) => {
 
     if ( database[id] ) {
-      delete database[id].content;
-      resolve(database[id]);
+      // console.log('inside delete IF resolve');
+      // console.log('db info before delete', database[id]);
+      // delete database[id].content;
+      // why not deleting the entire entry?
+      delete database[id];
+      // jeeze im trying to return the damn entry i just deleted
+      // resolve(database[id]);
+      resolve(`${id} was deleted`);
     }
 
     else {
+      // console.log('inside delete IF reject');
+
       reject('Invalid Data (No ID)');
     }
   });
